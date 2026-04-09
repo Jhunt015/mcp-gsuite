@@ -16,11 +16,10 @@ RUN uv sync --frozen --no-dev --no-editable
 # Final stage: running the application
 FROM python:3.13-slim-bookworm
 WORKDIR /app
-COPY --from=uv /root/.local /root/.local
 COPY --from=uv /app/.venv /app/.venv
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 # Expose necessary ports
 EXPOSE 4100
 # Specify the entrypoint command
-ENTRYPOINT ["uv", "run", "mcp-gsuite"]
+ENTRYPOINT [".venv/bin/mcp-gsuite"]
