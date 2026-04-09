@@ -10,9 +10,9 @@ ENV UV_COMPILE_BYTECODE=1
 # Use the copy link mode for mount points
 ENV UV_LINK_MODE=copy
 # Sync dependencies and build the project
-RUN --mount=type=cache,id=uv,target=/root/.cache/uv     --mount=type=bind,source=uv.lock,target=uv.lock     --mount=type=bind,source=pyproject.toml,target=pyproject.toml     uv sync --frozen --no-install-project --no-dev --no-editable
+RUN uv sync --frozen --no-install-project --no-dev --no-editable
 # Install the project
-RUN --mount=type=cache,id=uv,target=/root/.cache/uv     uv sync --frozen --no-dev --no-editable
+RUN uv sync --frozen --no-dev --no-editable
 # Final stage: running the application
 FROM python:3.13-slim-bookworm
 WORKDIR /app
